@@ -8,11 +8,13 @@ import java.util.Scanner;
 public class generadorCrud {
     public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException {
 
+        @SuppressWarnings("resource") 
         Scanner entidad = new Scanner(System.in);
         String nombre = null;
         String nombreEntidad = null;
         Integer tipoId = null;
         Utilitarios utilitarios = new Utilitarios();
+        @SuppressWarnings("resource") 
         Scanner tipo = new Scanner(System.in);
 
         Boolean verdadero = true;
@@ -58,7 +60,7 @@ public class generadorCrud {
         config.load(configInput);
 
         String tipoEstructura = config.getProperty("tipoEstructura");
-        String nombreDeAplicacion = config.getProperty("nombreDeAplicacion");
+        String paquete = config.getProperty("paquete");
 
         if ("0".equals(tipoEstructura)) {
             String directorioControlador = nombreEntidad + "/controller";
@@ -74,10 +76,10 @@ public class generadorCrud {
 
             GeneraDirectorioController generaDirectorioController = new GeneraDirectorioController();
             generaDirectorioController.generaDirectorioController(nombreEntidad, directorioControlador,
-                    entidadMayusculaInicial, nombreDeAplicacion, tipoId);
+                    entidadMayusculaInicial, paquete, tipoId);
 
             GeneraDirectorioEntity generaDirectorioEntity = new GeneraDirectorioEntity();
-            generaDirectorioEntity.GeneraDirectorioEntity(directorioEntidad, nombreEntidad);
+            generaDirectorioEntity.GeneraDirectorioEntity(directorioEntidad, nombreEntidad, entidadMayusculaInicial);
 
             GeneraDirectorioEntityDtos generaDirectorioEntityDtos = new GeneraDirectorioEntityDtos();
             generaDirectorioEntityDtos.GeneraDirectorioEntityDtos(nombreEntidad);
@@ -87,15 +89,15 @@ public class generadorCrud {
 
             GeneraDirectorioRepository generaDirectorioRepository = new GeneraDirectorioRepository();
             generaDirectorioRepository.generaDirectorioRepository(directorioRepositorio, nombreEntidad,
-                    entidadMayusculaInicial, nombreDeAplicacion, tipoId);
+                    entidadMayusculaInicial, paquete, tipoId);
 
             GeneraDirectorioService generaDirectorioService = new GeneraDirectorioService();
             generaDirectorioService.generaDirectorioService(directorioServicio, nombreEntidad, entidadMayusculaInicial,
-                    nombreDeAplicacion, tipoId);
+                    paquete, tipoId);
 
             GeneraDirectorioServiceImpl generaDirectorioServiceImpl = new GeneraDirectorioServiceImpl();
             generaDirectorioServiceImpl.generaDirectorioServiceImpl(directorioServicioImplementacion, nombreEntidad,
-                    entidadMayusculaInicial, nombreDeAplicacion, tipoId);
+                    entidadMayusculaInicial, paquete, tipoId);
 
         }
     }

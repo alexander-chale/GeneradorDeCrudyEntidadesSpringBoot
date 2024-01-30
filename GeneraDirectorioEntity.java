@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class GeneraDirectorioEntity {
 
-    public void GeneraDirectorioEntity(String directorioEntidad, String nombreEntidad)
+    public void GeneraDirectorioEntity(String directorioEntidad, String nombreEntidad, String entidadMayusculaInicial)
             throws SQLException, ClassNotFoundException, IOException {
 
         File directorioEntity = new File(directorioEntidad);
@@ -27,6 +27,7 @@ public class GeneraDirectorioEntity {
 
             Utilitarios utilitarios = new Utilitarios();
 
+            @SuppressWarnings("resource") 
             Scanner nombreTabla = new Scanner(System.in);
             String nombre = null;
 
@@ -106,7 +107,7 @@ public class GeneraDirectorioEntity {
             
            
 
-            File fileEntity = new File(nombre + "/entity");
+            File fileEntity = new File(directorioEntidad);
             utilitarios.deleteFile(fileEntity);
 
             //if (directorioEntity.mkdir()) {
@@ -117,11 +118,12 @@ public class GeneraDirectorioEntity {
                 System.out.println("   Archivo "+  fileEntity+" creado satisfactoriamente.\n");
 
                 try (FileWriter fw = new FileWriter(
-                        nombre + "/entity/" + utilitarios.generaMayusculaInicial(nombre) + "Entity.java",
-                        true);
+                    directorioEntidad + "/" + entidadMayusculaInicial + "Entity.java",
+                    true);
                         BufferedWriter bw = new BufferedWriter(fw);
                         PrintWriter out = new PrintWriter(bw)) {
-                    out.println("package " + paquete + "." + nombre + ".entity;");
+                            
+                    out.println("package " + paquete + "." + nombreEntidad+ ".entity;");
                     out.println("");
                     out.println("import jakarta.persistence.Column;");
                     out.println("import jakarta.persistence.Entity;");
@@ -145,7 +147,7 @@ public class GeneraDirectorioEntity {
                     out.println("@NoArgsConstructor");
                     out.println("@AllArgsConstructor");
                     out.println("");
-                    out.println("public class " + utilitarios.generaMayusculaInicial(nombre) + " extends Base {");
+                    out.println("public class " + entidadMayusculaInicial + " extends Base {");
                     out.println("");
                     out.println("   private static final long serialVersionUID = 1L;");
                     out.println("");
@@ -228,6 +230,8 @@ public class GeneraDirectorioEntity {
                 } catch (IOException e) {
                     // exception handling left as an exercise for the reader
                 }
+            } else{
+                System.out.println("no entro");
             }
 
         }

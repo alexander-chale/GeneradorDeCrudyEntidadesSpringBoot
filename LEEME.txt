@@ -1,1 +1,1 @@
-Falta implementar tipoEstructura=0 //Me dió flojera
+Falta implementar tipoEstructura=1 //Me dió flojera
