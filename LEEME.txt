@@ -1,1 +1,0 @@
-Falta implementar tipoEstructura=1 //Me dió flojera
