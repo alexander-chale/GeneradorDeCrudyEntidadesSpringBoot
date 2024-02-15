@@ -113,7 +113,7 @@ public class GeneraDirectorioEntity {
                 System.out.println("   Archivo "+  fileEntity+" creado satisfactoriamente.\n");
 
                 try (FileWriter fw = new FileWriter(
-                    directorioEntidad + "/" + entidadMayusculaInicial + "Entity.java",
+                    directorioEntidad + "/" + entidadMayusculaInicial+".java",
                     true);
                         BufferedWriter bw = new BufferedWriter(fw);
                         PrintWriter out = new PrintWriter(bw)) {
