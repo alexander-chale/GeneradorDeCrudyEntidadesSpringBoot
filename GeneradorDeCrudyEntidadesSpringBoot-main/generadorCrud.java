@@ -40,6 +40,7 @@ public class generadorCrud {
         @SuppressWarnings("resource") 
         Scanner entidad = new Scanner(System.in);
         String nombre = null;
+        String nombreCamelcase = null;
         String nombreEntidad = null;
         Integer tipoId = null;
         
@@ -52,13 +53,14 @@ public class generadorCrud {
         while (verdadero) {
             System.out.println("Ingrese el nombre de la tabla, tal como se encuentra creada en la base de datos");
             nombre = entidad.next();
+            System.out.println("este es el nombre de la tabla escrita " + nombre);
 
             tablaExiste = utilitarios.validaNombreTabla(nombre);
 
             if (tablaExiste==true) {
-               nombre =  utilitarios.camelCase(nombre);
+               nombreCamelcase =  utilitarios.camelCase(nombre);
                //esto hay que hacerlo bien es solo para demostar
-               nombreEntidad = nombre;
+               nombreEntidad = nombreCamelcase;
                nombreTablaValidada = nombre;
                verdadero = false;
                

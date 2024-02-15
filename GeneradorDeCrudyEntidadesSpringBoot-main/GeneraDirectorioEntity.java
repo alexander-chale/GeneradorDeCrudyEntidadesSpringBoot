@@ -28,7 +28,7 @@ public class GeneraDirectorioEntity {
             Utilitarios utilitarios = new Utilitarios();
 
            
-             String nombre = nombreTablaValidada;
+            
             
 
             
@@ -69,9 +69,11 @@ public class GeneraDirectorioEntity {
 
             System.out.println("\nObteniendo Informacion sobre una consulta con un ResultSet...");
 
-            ResultSet rs = st.executeQuery("select * from " + schema + "." + nombre);
+            System.out.println("select * from " + schema + "." + nombreTablaValidada);
 
-            System.out.println("select * from " + schema + "." + nombre);
+            ResultSet rs = st.executeQuery("select * from " + schema + "." + nombreTablaValidada);
+
+           
 
             rsmetadatos = rs.getMetaData();
 
@@ -89,7 +91,7 @@ public class GeneraDirectorioEntity {
                     "  ON k2.constraint_schema = fk.unique_constraint_schema\n" + //
                     " AND k2.constraint_name = fk.unique_constraint_name\n" + //
                     " AND k2.ordinal_position = k1.position_in_unique_constraint\n" + //
-                    " where k1.table_name ='" + nombre + "';");
+                    " where k1.table_name ='" + nombreTablaValidada + "';");
 
             String camelCaseRelacionesCampo = null;
             String camelCaseRelacionesTabla = null;
@@ -134,7 +136,7 @@ public class GeneraDirectorioEntity {
                     out.println("import com.fasterxml.jackson.annotation.JsonIgnore;");
                     out.println("");
                     out.println("@Entity");
-                    out.println("@Table(schema = " + schema + ", name = " + nombre + ")");
+                    out.println("@Table(schema = " + schema + ", name = " + nombreTablaValidada + ")");
                     out.println("@Getter");
                     out.println("@Setter");
                     out.println("@NoArgsConstructor");
