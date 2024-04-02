@@ -136,7 +136,7 @@ public class GeneraDirectorioEntity {
                     out.println("import com.fasterxml.jackson.annotation.JsonIgnore;");
                     out.println("");
                     out.println("@Entity");
-                    out.println("@Table(schema = " + schema + ", name = " + nombreTablaValidada + ")");
+                    out.println("@Table(schema = \"" + schema + "\", name = \"" + nombreTablaValidada + "\")");
                     out.println("@Getter");
                     out.println("@Setter");
                     out.println("@NoArgsConstructor");
