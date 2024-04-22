@@ -36,7 +36,7 @@ public class GeneraDirectorioEntity {
             Properties config = new Properties();
             InputStream configInput = null;
 
-            if (tipoSo == 0){
+            if (tipoSo ==0){
                 configInput = new FileInputStream("resources/config.properties");
             } else{
                 configInput = new FileInputStream("C:\\config.properties");
@@ -152,6 +152,7 @@ public class GeneraDirectorioEntity {
                     for (int i = 1; i <= col; i++) {
 
                         String tipoJava = utilitarios.generaTipoJava(rsmetadatos.getColumnClassName(i));
+                        
 
                         String nombreCamelcase = utilitarios.camelCase(rsmetadatos.getColumnName(i));
 
@@ -171,20 +172,25 @@ public class GeneraDirectorioEntity {
                         }
                         if (rsmetadatos.isNullable(i) == 1
                                 && (tipoJava.equals("Date") && tipoJava.equals("Timestamp"))) {
-                            System.out.println("\n");
+                            System.out.println("");
+                        }
+
+                        if (rsmetadatos.isNullable(i) == 0
+                                && tipoJava.equals("Timestamp")) {
+                            System.out.println("");
                         }
 
                         System.out.println("private " + tipoJava + " " + nombreCamelcase + ";");
+                        System.out.println("");
 
                         out.print("@Column");
-
-                        System.out.println("");
                         if (rsmetadatos.isNullable(i) == 0 && tipoJava.equals("Date") && tipoJava.equals("Timestamp")) {
                             out.println("(nullable = false)");
                         }
                         if (rsmetadatos.isNullable(i) == 0
                                 && (!tipoJava.equals("Date") && !tipoJava.equals("Timestamp"))) {
-                            out.println("(nullable = false, length = " + rsmetadatos.getColumnDisplaySize(i) + ")");
+                            out.println(
+                                    "(nullable = false, length = " + rsmetadatos.getColumnDisplaySize(i) + ")");
                         }
                         if (rsmetadatos.isNullable(i) == 1
                                 && (!tipoJava.equals("Date") && !tipoJava.equals("Timestamp"))) {
@@ -192,13 +198,18 @@ public class GeneraDirectorioEntity {
 
                         }
                         if (rsmetadatos.isNullable(i) == 1
-                                && (tipoJava.equals("Date") || tipoJava.equals("Timestamp"))) {
+                                && (tipoJava.equals("Date") && tipoJava.equals("Timestamp"))) {
                             out.println("");
                         }
 
-                        out.println("private " + tipoJava + " " + nombreCamelcase + ";");
+                        if (rsmetadatos.isNullable(i) == 0
+                                && tipoJava.equals("Timestamp")) {
+                           out.println("");
+                        }
 
+                        out.println("private " + tipoJava + " " + nombreCamelcase + ";");
                         out.println("");
+                        
                     }
 
                     while (relaciones.next()) {
@@ -207,14 +218,14 @@ public class GeneraDirectorioEntity {
                         camelCaseRelacionesTabla = utilitarios.camelCase(relaciones.getString(5));
 
                         System.out.println("@ManyToOne(fetch = FetchType.LAZY)");
-                        System.out.println("@JoinColumn(name = " + relaciones.getString(3) + ", nullable = false)");
+                        System.out.println("@JoinColumn(name = \"" + relaciones.getString(3) + "\", nullable = false)");
                         System.out
                                 .println("private " + utilitarios.generaMayusculaInicial(camelCaseRelacionesTabla) + " "
                                         + camelCaseRelacionesCampo + ";");
                         System.out.println("");
 
                         out.println("@ManyToOne(fetch = FetchType.LAZY)");
-                        out.println("@JoinColumn(name = " + relaciones.getString(3) + ", nullable = false)");
+                        out.println("@JoinColumn(name = \"" + relaciones.getString(3) + "\", nullable = false)");
                         out.println("private " + utilitarios.generaMayusculaInicial(camelCaseRelacionesTabla) + " "
                                 + camelCaseRelacionesCampo + ";");
                         out.println("");

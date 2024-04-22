@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class generadorCrud {
     public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException {
         
+          
         @SuppressWarnings("resource") 
         Scanner so = new Scanner(System.in);
         Integer sistemaOperativo = null;
@@ -109,6 +110,7 @@ public class generadorCrud {
 
         String tipoEstructura = config.getProperty("tipoEstructura");
         String paquete = config.getProperty("paquete");
+
 
         if ("0".equals(tipoEstructura)) {
             String directorioControlador = nombreEntidad + "/controller";
